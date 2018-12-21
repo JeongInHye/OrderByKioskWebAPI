@@ -36,7 +36,6 @@ namespace OrderByKioskWebAPI
             }
         }
         
-
         [Route("Staff/soldOutDelete")]
         [HttpPost]
         public ActionResult<string> SoldOutDelete([FromForm] string mName)
@@ -54,30 +53,6 @@ namespace OrderByKioskWebAPI
             {
                 return "0";
             }
-        }
-
-        [Route("Menu/nameSelect")]
-        [HttpPost]
-        public ActionResult<ArrayList> NameSelect([FromForm] string cNo)
-        {
-            db = new DataBase();
-            hashtable = new  Hashtable();
-            hashtable.Add("_cNo",cNo);
-            MySqlDataReader sdr = db.Reader("p_Menu_NameSelect",hashtable);
-            ArrayList list = new ArrayList();
-
-            while (sdr.Read())
-            {
-                string[] arr = new string[sdr.FieldCount];
-                for (int i = 0; i < sdr.FieldCount; i++)
-                {
-                    arr[i] = sdr.GetValue(i).ToString();
-                }
-                list.Add(arr);
-            }
-            db.ReaderClose(sdr);
-
-            return list;
         }
     }
 }

@@ -10,15 +10,15 @@ using MySql.Data.MySqlClient;
 namespace OrderByKioskWebAPI
 {
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class AdminController : ControllerBase
     {
-        [Route("category/select")]
+        [Route("Admin/soldoutList")]
         [HttpGet]
-        public ActionResult<ArrayList> Select()
+        public ActionResult<ArrayList> SoldoutList()
         {
             DataBase db = new DataBase();
             
-            MySqlDataReader sdr = db.Reader("p_Category_Select");
+            MySqlDataReader sdr = db.Reader("p_SoldoutList");
             
             ArrayList list = new ArrayList();
             while (sdr.Read())

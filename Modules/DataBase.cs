@@ -17,26 +17,29 @@ namespace OrderByKioskWebAPI
 
         private bool Connection()
         {
-           string host = "192.168.3.8";
-            string user = "root";
-            string password = "1234";
-            string db = "obk";
+            string host = "gudi.kr";
+            string user = "gdc3";
+            string pwd = "gdc3";
 
-            string connStr = string.Format(@"server={0};user={1};password={2};database={3}", host, user, password, db);
+            string db = "gdc3_3";
+            string port = "5002";
+
+            string connStr = string.Format(@"server={0};uid={1};password={2};database={3};port={4}", host, user, pwd, db,port);
             MySqlConnection conn = new MySqlConnection(connStr);
 
             try
             {
                 conn.Open();
                 this.connection = conn;
-                //MessageBox.Show("MS-SQL 연결 성공!");
+                Console.WriteLine("------------------------------------------");
                 return true;
+                
             }
             catch
             {
                 conn.Close();
                 this.connection = null;
-                //MessageBox.Show("MS-SQL 연결 실패!");
+                Console.WriteLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
                 return false;
             }
         }

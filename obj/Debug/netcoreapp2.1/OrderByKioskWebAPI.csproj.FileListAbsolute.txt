@@ -12,3 +12,17 @@ C:\Users\GD10\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.Asse
 C:\Users\GD10\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.RazorTargetAssemblyInfo.cache
 C:\Users\GD10\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.dll
 C:\Users\GD10\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.pdb
+C:\Users\inhye\OrderByKioskWebAPI\bin\Debug\netcoreapp2.1\OrderByKioskWebAPI.deps.json
+C:\Users\inhye\OrderByKioskWebAPI\bin\Debug\netcoreapp2.1\OrderByKioskWebAPI.runtimeconfig.json
+C:\Users\inhye\OrderByKioskWebAPI\bin\Debug\netcoreapp2.1\OrderByKioskWebAPI.runtimeconfig.dev.json
+C:\Users\inhye\OrderByKioskWebAPI\bin\Debug\netcoreapp2.1\OrderByKioskWebAPI.dll
+C:\Users\inhye\OrderByKioskWebAPI\bin\Debug\netcoreapp2.1\OrderByKioskWebAPI.pdb
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.csprojAssemblyReference.cache
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.csproj.CoreCompileInputs.cache
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.RazorAssemblyInfo.cache
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.RazorAssemblyInfo.cs
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.AssemblyInfoInputs.cache
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.AssemblyInfo.cs
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.RazorTargetAssemblyInfo.cache
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.dll
+C:\Users\inhye\OrderByKioskWebAPI\obj\Debug\netcoreapp2.1\OrderByKioskWebAPI.pdb
