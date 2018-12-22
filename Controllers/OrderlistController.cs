@@ -55,6 +55,46 @@ namespace OrderByKioskWebAPI
             return list;
         }
 
+        [Route("orderlist/selectstaff")]
+        [HttpGet]
+        public ActionResult<ArrayList> Selectstaff_Orderlist()
+        {
+            db = new DataBase();
+
+            MySqlDataReader sdr = db.Reader("p_Orderlist_selectstaff");
+            ArrayList list = new ArrayList();
+            while (sdr.Read())
+            {
+                //0 ''/1 o.oNo/2 m.mName/3 o.oDegree/4 o.oSize/5 o.oShot/6 o.oCream/7 o.oCount
+                string[] arr = new string[sdr.FieldCount];
+
+                arr[0] = sdr.GetValue(0).ToString();
+                arr[1] = sdr.GetValue(1).ToString();
+                string menu="";
+                menu += sdr.GetValue(2).ToString();
+                if(sdr.GetValue(3).ToString()!="X")
+                {
+                    menu+="("+sdr.GetValue(3).ToString()+")";
+                }
+                if(sdr.GetValue(4).ToString()!="X")
+                {
+                    string size = sdr.GetValue(4).ToString();
+                    menu +="_"+size.Substring(0,1);
+                }
+                //===================메뉴이름
+                arr[2] = menu;
+                if(sdr.GetValue(5).ToString()!="-1")   arr[3] = sdr.GetValue(5).ToString();//샷추가
+                else                                   arr[3] = "X";
+                arr[4]=sdr.GetValue(6).ToString();//휘핑크림
+                arr[5] = sdr.GetValue(7).ToString();//수량
+
+                list.Add(arr);
+            }
+            db.ReaderClose(sdr);
+
+            return list;
+        }
+
         [Route("orderlist/insert")]
         [HttpPost]
         public ActionResult<string> Insert([FromForm] string mName,[FromForm] string oCount,[FromForm] string oDegree,[FromForm] string oSize,[FromForm] string oShot,[FromForm] string oCream)

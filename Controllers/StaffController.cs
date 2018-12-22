@@ -16,6 +16,30 @@ namespace OrderByKioskWebAPI
     {
         DataBase db;
         Hashtable hashtable;
+
+        [Route("Staff/soldOutAddList")]
+        [HttpPost]
+        public ActionResult<ArrayList> SoldOutAddList([FromForm] string cNo)
+        {
+            db = new DataBase();
+            hashtable = new  Hashtable();
+            hashtable.Add("_cNo",cNo);
+            MySqlDataReader sdr = db.Reader("p_Staff_SoldOutAddList",hashtable);
+            ArrayList list = new ArrayList();
+
+            while (sdr.Read())
+            {
+                string[] arr = new string[sdr.FieldCount];
+                for (int i = 0; i < sdr.FieldCount; i++)
+                {
+                    arr[i] = sdr.GetValue(i).ToString();
+                }
+                list.Add(arr);
+            }
+            db.ReaderClose(sdr);
+
+            return list;
+        }
      
         [Route("Staff/soldOutAdd")]
         [HttpPost]
@@ -34,6 +58,29 @@ namespace OrderByKioskWebAPI
             {
                 return "0";
             }
+        }
+        
+        [Route("Staff/soldOutDeleteList")]
+        [HttpGet]
+        public ActionResult<ArrayList> SoldOutDeleteList()
+        {
+            DataBase db = new DataBase();
+            
+            MySqlDataReader sdr = db.Reader("p_Staff_SoldOutDeleteList");
+            
+            ArrayList list = new ArrayList();
+            while (sdr.Read())
+            {
+                string[] arr = new string[sdr.FieldCount];
+                for (int i = 0; i < sdr.FieldCount; i++)
+                {
+                    arr[i] = sdr.GetValue(i).ToString();
+                }
+                list.Add(arr);
+            }
+            db.ReaderClose(sdr);
+
+            return list;
         }
         
         [Route("Staff/soldOutDelete")]
