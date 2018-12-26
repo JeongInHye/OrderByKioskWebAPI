@@ -42,7 +42,7 @@ namespace OrderByKioskWebAPI
                 fileStream.Write(data,0,data.Length);
                 fileStream.Close();
 
-                string url = string.Format("http://175.119.63.181:5000/{0}",fullName);
+                string url = string.Format("http://192.168.3.31:5000/{0}",fullName);
 
                 hashtable = new Hashtable();
                 hashtable.Add("_cNo",cNo);
@@ -98,7 +98,7 @@ namespace OrderByKioskWebAPI
                     fileStream.Write(data, 0, data.Length);
                     fileStream.Close();
 
-                    url = string.Format("http://175.119.63.181:5000/{0}", fullName);
+                    url = string.Format("http://192.168.3.31:5000/{0}", fullName);
                 }
                 else
                 {

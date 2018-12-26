@@ -17,12 +17,17 @@ namespace OrderByKioskWebAPI
 
         private bool Connection()
         {
-            string host = "gudi.kr";
-            string user = "gdc3";
-            string pwd = "gdc3";
+            // string host = "gudi.kr";
+            // string user = "gdc3";
+            // string pwd = "gdc3";
+            // string db = "gdc3_3";
+            // string port = "5002";
 
-            string db = "gdc3_3";
-            string port = "5002";
+            string host = "192.168.3.8";
+            string user = "root";
+            string pwd = "1234";
+            string db = "obk";
+            string port = "3306";
 
             string connStr = string.Format(@"server={0};uid={1};password={2};database={3};port={4}", host, user, pwd, db,port);
             MySqlConnection conn = new MySqlConnection(connStr);

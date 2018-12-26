@@ -12,11 +12,12 @@ namespace OrderByKioskWebAPI
     [ApiController]
     public class AdminController : ControllerBase
     {
+        DataBase db;
         [Route("Admin/soldoutList")]
         [HttpGet]
         public ActionResult<ArrayList> SoldoutList()
         {
-            DataBase db = new DataBase();
+            db = new DataBase();
             
             MySqlDataReader sdr = db.Reader("p_SoldoutList");
             
@@ -33,6 +34,22 @@ namespace OrderByKioskWebAPI
             db.ReaderClose(sdr);
 
             return list;
+        }
+
+        [Route("admin/passwd")]
+        [HttpGet]
+        public ActionResult<string> Passwd()
+        {
+            db = new DataBase();
+
+            MySqlDataReader sdr = db.Reader("p_Admin_Passwd");
+
+            while (sdr.Read())
+            {
+                return sdr.GetValue(0).ToString();
+            }
+            db.ReaderClose(sdr);
+            return "";
         }
     }
 }

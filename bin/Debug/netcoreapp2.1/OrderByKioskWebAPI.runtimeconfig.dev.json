@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\inhye\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\inhye\\.nuget\\packages",
+      "C:\\Users\\GD10\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\GD10\\.nuget\\packages",
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
     ]
   }

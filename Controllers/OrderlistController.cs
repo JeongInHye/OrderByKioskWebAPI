@@ -47,14 +47,14 @@ namespace OrderByKioskWebAPI
                 arr[3]=sdr.GetValue(5).ToString();//휘핑크림
                 arr[4] = sdr.GetValue(6).ToString();//수량
                 arr[5]=sdr.GetValue(7).ToString();//가격
-
+                arr[6] = sdr.GetValue(8).ToString();//oNo주문번호를 보내줌
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
 
             return list;
         }
-
+        
         [Route("orderlist/selectstaff")]
         [HttpGet]
         public ActionResult<ArrayList> Selectstaff_Orderlist()
@@ -65,7 +65,7 @@ namespace OrderByKioskWebAPI
             ArrayList list = new ArrayList();
             while (sdr.Read())
             {
-                //0 ''/1 o.oNo/2 m.mName/3 o.oDegree/4 o.oSize/5 o.oShot/6 o.oCream/7 o.oCount
+                //0 ''/1 o.oNum/2 m.mName/3 o.oDegree/4 o.oSize/5 o.oShot/6 o.oCream/7 o.oCount
                 string[] arr = new string[sdr.FieldCount];
 
                 arr[0] = sdr.GetValue(0).ToString();
@@ -95,9 +95,48 @@ namespace OrderByKioskWebAPI
             return list;
         }
 
+        [Route("orderlist/selectpay")]
+        [HttpGet]
+        public ActionResult<ArrayList> Select_OrderlistPay()
+        {
+            db = new DataBase();
+
+            MySqlDataReader sdr = db.Reader("p_Orderlist_selectpay");
+            ArrayList list = new ArrayList();
+            while (sdr.Read())
+            {
+                string[] arr = new string[sdr.FieldCount];
+
+                //arr[0] = sdr.GetValue(0).ToString();
+                string menu="";
+                menu += sdr.GetValue(0).ToString();
+                if(sdr.GetValue(1).ToString()!="X")
+                {
+                    menu+="("+sdr.GetValue(2).ToString()+")";
+                }
+                if(sdr.GetValue(2).ToString()!="X")
+                {
+                    string size = sdr.GetValue(2).ToString();
+                    menu +="_"+size.Substring(0,1);
+                }
+                //===================메뉴이름
+                arr[0] = menu;
+                if(sdr.GetValue(3).ToString()!="-1")   arr[1] = sdr.GetValue(3).ToString();//샷추가
+                else                                   arr[1] = "X";
+                arr[2]=sdr.GetValue(4).ToString();//휘핑크림
+                arr[3] = sdr.GetValue(5).ToString();//수량
+                arr[4]=sdr.GetValue(6).ToString();//가격
+
+                list.Add(arr);
+            }
+            db.ReaderClose(sdr);
+
+            return list;
+        }
+
         [Route("orderlist/insert")]
         [HttpPost]
-        public ActionResult<string> Insert([FromForm] string mName,[FromForm] string oCount,[FromForm] string oDegree,[FromForm] string oSize,[FromForm] string oShot,[FromForm] string oCream)
+        public ActionResult<string> Insert([FromForm] string mName,[FromForm] string oNum,[FromForm] string oCount,[FromForm] string oDegree,[FromForm] string oSize,[FromForm] string oShot,[FromForm] string oCream)
         {
             db = new DataBase();
             ht = new Hashtable();
@@ -107,12 +146,13 @@ namespace OrderByKioskWebAPI
             if(oCream==null) oCream="X";
 
             ht.Add("_mName", mName);
+            ht.Add("_oNum",oNum);
             ht.Add("_oCount", oCount);
             ht.Add("_oDegree", oDegree);
             ht.Add("_oSize", oSize);
             ht.Add("_oShot", oShot);
             ht.Add("_oCream", oCream);
-            Console.WriteLine("이름->"+mName+",수량->"+oCount+",온도->"+oDegree+",사이즈->"+oSize+",샷->"+oShot+",휘핑->"+oCream);
+            Console.WriteLine("이름->"+mName+"주문번호->"+oNum+",수량->"+oCount+",온도->"+oDegree+",사이즈->"+oSize+",샷->"+oShot+",휘핑->"+oCream);
             if (db.NonQuery("p_Orderlist_insert", ht))
             {
                 return "1";
@@ -141,15 +181,71 @@ namespace OrderByKioskWebAPI
             }
         }
         
-        [Route("orderlist/pay")]
+        [Route("orderlist/orderYn")]
         [HttpPost]
-        public ActionResult<string> Pay([FromForm] string oNo)
+        public ActionResult<string> OrderYn([FromForm] string oNum)
+        {
+            db = new DataBase();
+            ht = new Hashtable();
+            ht.Add("_oNum", oNum);
+
+            if (db.NonQuery("p_Orderlist_orderYn", ht))
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+        }
+    
+        [Route("orderlist/selectMaxoNum")]
+        [HttpGet]
+        public ActionResult<int> SelectMaxoNum_Orderlist()
+        {
+            db = new DataBase();
+
+            MySqlDataReader sdr = db.Reader("p_Orderlist_selectMaxoNum");
+
+            while (sdr.Read())
+            {
+                if (sdr.GetValue(0) == System.DBNull.Value)
+                {
+                    return 1;
+                }
+                return (int)sdr.GetValue(0)+1;
+            }
+            db.ReaderClose(sdr);
+            return 0;
+        }
+
+        [Route("orderlist/deleteOrder")]
+        [HttpPost]
+        public ActionResult<string> DeleteOrder([FromForm] string oNo)
         {
             db = new DataBase();
             ht = new Hashtable();
             ht.Add("_oNo", oNo);
 
-            if (db.NonQuery("p_Orderlist_pay", ht))
+            if (db.NonQuery("p_Orderlist_deleteOrder", ht))
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+        }
+
+        [Route("orderlist/deleteOrderAll")]
+        [HttpPost]
+        public ActionResult<string> DeleteOrderAll([FromForm] string oNum)
+        {
+            db = new DataBase();
+            ht = new Hashtable();
+            ht.Add("_oNum", oNum);
+
+            if (db.NonQuery("p_Orderlist_deleteOrderAll", ht))
             {
                 return "1";
             }
