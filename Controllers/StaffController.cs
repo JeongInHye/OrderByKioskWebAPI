@@ -37,7 +37,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
      
@@ -52,10 +52,12 @@ namespace OrderByKioskWebAPI
 
             if(db.NonQuery("p_Staff_SoldOutAdd",hashtable))
             {
+                db.Close();
                 return "1";
             }
             else
             {
+                db.Close();
                 return "0";
             }
         }
@@ -79,7 +81,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
         
@@ -94,10 +96,12 @@ namespace OrderByKioskWebAPI
 
             if(db.NonQuery("p_Staff_SoldOutDelete",hashtable))
             {
+                db.Close();
                 return "1";
             }
             else
             {
+                db.Close();
                 return "0";
             }
         }

@@ -31,7 +31,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
     }

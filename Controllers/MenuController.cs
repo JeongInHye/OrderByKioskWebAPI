@@ -57,12 +57,15 @@ namespace OrderByKioskWebAPI
                 db = new DataBase();
                 if(db.NonQuery("p_Menu_Insert",hashtable))
                 {
+                    db.Close();
                     return "1";
                 }
                 else
                 {
+                    db.Close();
                     return "0";
                 }
+                
             }
             catch
             {
@@ -119,10 +122,12 @@ namespace OrderByKioskWebAPI
 
                 if(db.NonQuery("p_Menu_MenuEdit",hashtable))
                 {
+                    db.Close();
                     return "1";
                 }
                 else
                 {
+                    db.Close();
                     return "0";
                 }
             }
@@ -144,10 +149,12 @@ namespace OrderByKioskWebAPI
 
             if(db.NonQuery("p_Menu_Delete",hashtable))
             {
+                db.Close();
                 return "1";
             }
             else
             {
+                db.Close();
                 return "0";
             }
         }
@@ -173,6 +180,7 @@ namespace OrderByKioskWebAPI
             }
             db.ReaderClose(sdr);
 
+            db.Close(); 
             return list;
         }
 
@@ -196,7 +204,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
     
@@ -220,7 +228,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
 
@@ -244,7 +252,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
 
@@ -263,7 +271,7 @@ namespace OrderByKioskWebAPI
                 list=sdr.GetValue(0).ToString();
             }
             db.ReaderClose(sdr);
-        
+            db.Close();
             return list;
         }
     }

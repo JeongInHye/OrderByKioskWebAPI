@@ -51,7 +51,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
         
@@ -91,7 +91,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
 
@@ -130,7 +130,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
 
@@ -155,28 +155,32 @@ namespace OrderByKioskWebAPI
             Console.WriteLine("이름->"+mName+"주문번호->"+oNum+",수량->"+oCount+",온도->"+oDegree+",사이즈->"+oSize+",샷->"+oShot+",휘핑->"+oCream);
             if (db.NonQuery("p_Orderlist_insert", ht))
             {
+                db.Close();
                 return "1";
             }
             else
             {
+                db.Close();
                 return "0";
             }
         }
 
-        [Route("orderlist/complete")]
+        [Route("orderlist/comYn")]
         [HttpPost]
-        public ActionResult<string> Complete([FromForm] string oNo)
+        public ActionResult<string> ComYn([FromForm] string oNum)
         {
             db = new DataBase();
             ht = new Hashtable();
 
-            ht.Add("_oNo", oNo);
-            if (db.NonQuery("p_Orderlist_complete", ht))
+            ht.Add("_oNum", oNum);
+            if (db.NonQuery("p_Staff_ComYn", ht))
             {
+                db.Close();
                 return "1";
             }
             else
             {
+                db.Close();
                 return "0";
             }
         }
@@ -191,10 +195,12 @@ namespace OrderByKioskWebAPI
 
             if (db.NonQuery("p_Orderlist_orderYn", ht))
             {
+                db.Close();
                 return "1";
             }
             else
             {
+                db.Close();
                 return "0";
             }
         }
@@ -216,6 +222,7 @@ namespace OrderByKioskWebAPI
                 return (int)sdr.GetValue(0)+1;
             }
             db.ReaderClose(sdr);
+            db.Close();
             return 0;
         }
 
@@ -229,10 +236,12 @@ namespace OrderByKioskWebAPI
 
             if (db.NonQuery("p_Orderlist_deleteOrder", ht))
             {
+                db.Close();
                 return "1";
             }
             else
             {
+                db.Close();
                 return "0";
             }
         }
@@ -247,12 +256,55 @@ namespace OrderByKioskWebAPI
 
             if (db.NonQuery("p_Orderlist_deleteOrderAll", ht))
             {
+                db.Close();
                 return "1";
             }
             else
             {
+                db.Close();
                 return "0";
             }
+        }
+    
+        [Route("orderlist/selectBill")]
+        [HttpPost]
+        public ActionResult<ArrayList> Select_Bill([FromForm] string oNum)
+        {
+            db = new DataBase();
+            ht = new Hashtable();
+            ht.Add("_oNum",oNum);
+            MySqlDataReader sdr = db.Reader("p_Orderlist_selectBill",ht);
+           
+            ArrayList list = new ArrayList();
+            while (sdr.Read())
+            {
+                string[] arr = new string[sdr.FieldCount];
+
+                arr[0] = sdr.GetValue(0).ToString();
+                string menu="";
+                menu += sdr.GetValue(1).ToString();
+                if(sdr.GetValue(2).ToString()!="X")
+                {
+                    menu+="("+sdr.GetValue(2).ToString()+")";
+                }
+                if(sdr.GetValue(3).ToString()!="X")
+                {
+                    string size = sdr.GetValue(3).ToString();
+                    menu +="_"+size.Substring(0,1);
+                }
+                //===================메뉴이름
+                arr[1] = menu;
+                if(sdr.GetValue(4).ToString()!="-1")   arr[2] = sdr.GetValue(4).ToString();//샷추가
+                else                                   arr[2] = "X";
+                arr[3]=sdr.GetValue(5).ToString();//휘핑크림
+                arr[4] = sdr.GetValue(6).ToString();//수량
+                arr[5]=sdr.GetValue(7).ToString();//가격
+                arr[6] = sdr.GetValue(8).ToString();//oNum주문번호를 보내줌
+                list.Add(arr);
+            }
+            db.ReaderClose(sdr);
+
+            return list;
         }
     }
 }

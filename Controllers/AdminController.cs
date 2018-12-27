@@ -32,7 +32,7 @@ namespace OrderByKioskWebAPI
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
 
@@ -49,7 +49,56 @@ namespace OrderByKioskWebAPI
                 return sdr.GetValue(0).ToString();
             }
             db.ReaderClose(sdr);
+            db.Close();
             return "";
+        }
+    
+        [Route("admin/selectMonthIncome")]
+        [HttpPost]
+        public ActionResult<ArrayList> Select_Admin_monthIncome([FromForm] string startdate,[FromForm] string enddate)
+        {
+            db = new DataBase();
+            Hashtable ht = new Hashtable();
+            ht.Add("_startdate",startdate);
+            ht.Add("_enddate",enddate);
+            MySqlDataReader sdr = db.Reader("p_Admin_monthIncome",ht);
+            ArrayList list = new ArrayList();
+            while (sdr.Read())
+            {
+                string[] arr = new string[sdr.FieldCount];
+                for (int i = 0; i < sdr.FieldCount; i++)
+                {
+                    arr[i] = sdr.GetValue(i).ToString();
+                }
+                list.Add(arr);
+            }
+            db.ReaderClose(sdr);
+
+            return list;
+        }
+    
+        [Route("admin/selectMenuIncome")]
+        [HttpPost]
+        public ActionResult<ArrayList> Select_Admin_menuIncome([FromForm] string startdate,[FromForm] string enddate)
+        {
+            db = new DataBase();
+            Hashtable ht = new Hashtable();
+            ht.Add("_startdate",startdate);
+            ht.Add("_enddate",enddate);
+            MySqlDataReader sdr = db.Reader("p_Admin_menuIncome",ht);
+            ArrayList list = new ArrayList();
+            while (sdr.Read())
+            {
+                string[] arr = new string[sdr.FieldCount];
+                for (int i = 0; i < sdr.FieldCount; i++)
+                {
+                    arr[i] = sdr.GetValue(i).ToString();
+                }
+                list.Add(arr);
+            }
+            db.ReaderClose(sdr);
+
+            return list;
         }
     }
 }
