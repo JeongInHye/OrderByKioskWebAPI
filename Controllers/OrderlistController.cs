@@ -274,12 +274,11 @@ namespace OrderByKioskWebAPI
             ht = new Hashtable();
             ht.Add("_oNum",oNum);
             MySqlDataReader sdr = db.Reader("p_Orderlist_selectBill",ht);
-           
+            
             ArrayList list = new ArrayList();
             while (sdr.Read())
             {
                 string[] arr = new string[sdr.FieldCount];
-
                 arr[0] = sdr.GetValue(0).ToString();
                 string menu="";
                 menu += sdr.GetValue(1).ToString();
@@ -294,16 +293,13 @@ namespace OrderByKioskWebAPI
                 }
                 //===================메뉴이름
                 arr[1] = menu;
-                if(sdr.GetValue(4).ToString()!="-1")   arr[2] = sdr.GetValue(4).ToString();//샷추가
-                else                                   arr[2] = "X";
-                arr[3]=sdr.GetValue(5).ToString();//휘핑크림
-                arr[4] = sdr.GetValue(6).ToString();//수량
-                arr[5]=sdr.GetValue(7).ToString();//가격
-                arr[6] = sdr.GetValue(8).ToString();//oNum주문번호를 보내줌
+                arr[2] = sdr.GetValue(4).ToString();//단가
+                arr[3]=sdr.GetValue(5).ToString();//수량
+                arr[4] = sdr.GetValue(6).ToString();//금액
                 list.Add(arr);
             }
             db.ReaderClose(sdr);
-
+            db.Close();
             return list;
         }
     }
