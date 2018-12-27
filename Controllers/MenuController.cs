@@ -16,6 +16,7 @@ namespace OrderByKioskWebAPI
     {
         DataBase db;
         Hashtable hashtable;
+        string serverUrl="http://192.168.3.31:5000";
         
         [Route("Menu/add")]
         [HttpPost]
@@ -42,7 +43,7 @@ namespace OrderByKioskWebAPI
                 fileStream.Write(data,0,data.Length);
                 fileStream.Close();
 
-                string url = string.Format("http://192.168.3.31:5000/{0}",fullName);
+                string url = string.Format("{0}/{1}",serverUrl,fullName);
 
                 hashtable = new Hashtable();
                 hashtable.Add("_cNo",cNo);
@@ -88,7 +89,7 @@ namespace OrderByKioskWebAPI
             try
             {
                 string url;
-                Console.WriteLine("---------->"+fileData.Length+"<--------------");
+                // Console.WriteLine("---------->"+fileData.Length+"<--------------");
                 if (fileData.Length>80)
                 {
                     string ext = fileName.Substring(fileName.LastIndexOf("."));
@@ -101,7 +102,7 @@ namespace OrderByKioskWebAPI
                     fileStream.Write(data, 0, data.Length);
                     fileStream.Close();
 
-                    url = string.Format("http://192.168.3.31:5000/{0}", fullName);
+                    url = string.Format("{0}/{1}",serverUrl, fullName);
                 }
                 else
                 {
