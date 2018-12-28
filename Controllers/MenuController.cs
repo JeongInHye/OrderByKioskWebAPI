@@ -22,8 +22,8 @@ namespace OrderByKioskWebAPI
         [HttpPost]
         public ActionResult<string> Add([FromForm] string fileName,[FromForm]string fileData,[FromForm] string cNo,[FromForm] string mName,[FromForm] string mPrice,[FromForm] string mImage,[FromForm] string DegreeYn,[FromForm] string SizeYn,[FromForm] string ShotYn,[FromForm] string CreamYn)
         {
-            string path = System.IO.Directory.GetCurrentDirectory();
-            path += "/wwwroot";
+            string path = "/root/OrderByKioskWebAPI/wwwroot";  //System.IO.Directory.GetCurrentDirectory();
+            //path += "/root/OrderByKioskWebAPI/wwwroot";
 
             if (!Directory.Exists(path))
             {
@@ -37,7 +37,7 @@ namespace OrderByKioskWebAPI
                 string ext = fileName.Substring(fileName.LastIndexOf("."));
                 Guid saveName = Guid.NewGuid();
                 string fullName = saveName + ext;   // 저장되는 파일명 생성
-                string fullPath = string.Format("{0}\\{1}",path,fullName);  // 전체경로 + 저장파일명 (주소) 
+                string fullPath = string.Format("{0}/{1}",path,fullName);  // 전체경로 + 저장파일명 (주소) 
                 FileInfo fileInfo = new FileInfo(fullPath);
                 FileStream fileStream = fileInfo.Create();
                 fileStream.Write(data,0,data.Length);
@@ -79,8 +79,8 @@ namespace OrderByKioskWebAPI
         [HttpPost]
         public ActionResult<string> MenuEdeit([FromForm] string fileName,[FromForm]string fileData,[FromForm] string mName,[FromForm] string NewmName,[FromForm] string mPrice,[FromForm] string DegreeYn,[FromForm] string SizeYn,[FromForm] string ShotYn,[FromForm] string CreamYn)
         {
-            string path = System.IO.Directory.GetCurrentDirectory();
-            path += "\\wwwroot";
+            string path = "/root/OrderByKioskWebAPI/wwwroot";	//System.IO.Directory.GetCurrentDirectory();
+           // path += "\\wwwroot";
 
             if (!Directory.Exists(path))
             {
@@ -95,7 +95,7 @@ namespace OrderByKioskWebAPI
                     string ext = fileName.Substring(fileName.LastIndexOf("."));
                     Guid saveName = Guid.NewGuid();
                     string fullName = saveName + ext;
-                    string fullPath = string.Format("{0}\\{1}", path, fullName);
+                    string fullPath = string.Format("{0}/{1}", path, fullName);
                     FileInfo fileInfo = new FileInfo(fullPath);
                     FileStream fileStream = fileInfo.Create();
                     byte[] data = Convert.FromBase64String(fileData);

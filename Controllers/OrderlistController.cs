@@ -48,7 +48,8 @@ namespace OrderByKioskWebAPI
                 arr[4] = sdr.GetValue(6).ToString();//수량
                 arr[5]=sdr.GetValue(7).ToString();//가격
                 arr[6] = sdr.GetValue(8).ToString();//oNo주문번호를 보내줌
-                list.Add(arr);
+                arr[7] = sdr.GetValue(9).ToString();
+		list.Add(arr);
             }
             db.ReaderClose(sdr);
             db.Close();
