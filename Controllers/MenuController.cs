@@ -16,14 +16,14 @@ namespace OrderByKioskWebAPI
     {
         DataBase db;
         Hashtable hashtable;
-        string serverUrl="http://192.168.3.31:5000";
+        string serverUrl="http://192.168.3.50:5000";
         
         [Route("Menu/add")]
         [HttpPost]
         public ActionResult<string> Add([FromForm] string fileName,[FromForm]string fileData,[FromForm] string cNo,[FromForm] string mName,[FromForm] string mPrice,[FromForm] string mImage,[FromForm] string DegreeYn,[FromForm] string SizeYn,[FromForm] string ShotYn,[FromForm] string CreamYn)
         {
             string path = System.IO.Directory.GetCurrentDirectory();
-            path += "\\wwwroot";
+            path += "/wwwroot";
 
             if (!Directory.Exists(path))
             {
