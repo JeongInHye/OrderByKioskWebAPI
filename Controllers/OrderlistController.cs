@@ -13,8 +13,8 @@ namespace OrderByKioskWebAPI
     [ApiController]
     public class OrderlistController : ControllerBase
     {
-        DataBase db = new DataBase();
-        Hashtable ht = new  Hashtable();
+        DataBase db;
+        Hashtable ht;
 
         [Route("orderlist/select")]
         [HttpGet]
