@@ -88,6 +88,7 @@ namespace OrderByKioskWebAPI
                 else                                   arr[3] = "X";
                 arr[4]=sdr.GetValue(6).ToString();//휘핑크림
                 arr[5] = sdr.GetValue(7).ToString();//수량
+		arr[6] = sdr.GetValue(8).ToString();//주문번호 기본키
 
                 list.Add(arr);
             }
@@ -168,12 +169,12 @@ namespace OrderByKioskWebAPI
 
         [Route("orderlist/comYn")]
         [HttpPost]
-        public ActionResult<string> ComYn([FromForm] string oNum)
+        public ActionResult<string> ComYn([FromForm] string oNo)
         {
             db = new DataBase();
             ht = new Hashtable();
 
-            ht.Add("_oNum", oNum);
+            ht.Add("_oNo", oNo);
             if (db.NonQuery("p_Staff_ComYn", ht))
             {
                 db.Close();
